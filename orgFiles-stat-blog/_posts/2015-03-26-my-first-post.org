@@ -1,0 +1,10 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+BEGIN_HTML
+---
+layout: default
+title: Why create another stat blog...
+---
+#+END_HTML
+
+The purely leeching days are over.  (just mostly leeching now...)
