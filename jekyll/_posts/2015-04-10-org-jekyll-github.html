@@ -1,0 +1,170 @@
+---
+layout: post
+title: "Org-mode -> Jekyll -> GitHub Blog Workflow"
+date: 2015-04-10
+excerpt: This post describes my blogging workflow.  The motivation is mostly to remind myself, but there is a chance that someone may find find this useful or interesting. The basic process requires Emacs Org-mode, Jekyll (ruby program), and a web server (e.g. Github).
+---
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Introduction &amp; References</a></li>
+<li><a href="#sec-2">2 Install Jekyll</a></li>
+<li><a href="#sec-3">3 Project Directory Structure</a></li>
+<li><a href="#sec-4">4 Config org mode</a></li>
+<li><a href="#sec-5">5 Write post.org</a></li>
+<li><a href="#sec-6">6 Publish post.html</a></li>
+<li><a href="#sec-7">7 Move files and place on web server</a></li>
+<li><a href="#sec-8">8 Enjoy!</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Introduction &amp; References</h2>
+<div class="outline-text-2" id="text-1">
+
+<p><a href="http://orgmode.org/worg/org-tutorials/org-jekyll.html">Ian Barton's worg post</a>
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">Install Jekyll</h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">Project Directory Structure</h2>
+<div class="outline-text-2" id="text-3">
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">Config org mode</h2>
+<div class="outline-text-2" id="text-4">
+
+
+
+
+
+<pre class="example">;; Org Publish to Stat Blog to Jekyll config Added 26 Mar 2015
+;; http://orgmode.org/worg/org-tutorials/org-jekyll.html
+;; Thanks to Ian Barton
+(setq org-publish-project-alist
+      '(
+
+  ("org-grizant"
+          ;; Path to your org files.
+          :base-directory "~/Dropbox/GitHubPage/orgFiles-stat-blog/"
+          :base-extension "org"
+
+          ;; Path to your Jekyll project.
+          :publishing-directory "~/Dropbox/GitHubPage/jekyll/"
+          :recursive t
+          :publishing-function org-publish-org-to-html
+          :headline-levels 4 
+          :html-extension "html"
+          :body-only t ;; Only export section between &lt;body&gt; &lt;/body&gt;
+    )
+
+
+    ("org-static-grizant"
+          :base-directory "~/Dropbox/GitHubPage/orgFiles-stat-blog/"
+          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
+          :publishing-directory "~/Dropbox/GitHubPage/"
+          :recursive t
+          :publishing-function org-publish-attachment)
+
+    ("grizant" :components ("org-grizant" "org-static-grizant"))
+
+))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5">Write post.org</h2>
+<div class="outline-text-2" id="text-5">
+
+
+
+
+<pre class="example">#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+BEGIN_HTML
+---
+layout: default
+title: Benighted on the Ben.
+excerpt: An unplanned bivouac on Ben Nevis.
+---
+It was early January when six of us travelled up to ....
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6">Publish post.html</h2>
+<div class="outline-text-2" id="text-6">
+
+<p>To export <code>C-c e X grizant</code>.
+</p>
+<p>
+You can view by <code>jekyll serve</code>
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7">Move files and place on web server</h2>
+<div class="outline-text-2" id="text-7">
+
+
+<p>
+From .bashrc:
+</p>
+
+
+
+<pre class="example"># easy git push
+gitpush()
+{
+git add --all &amp;&amp; git commit -m "$1" &amp;&amp; git push -u origin master
+}
+
+# copy _site files from jekyll to web server and push
+pubsite()
+{
+cd ~/Dropbox/GitHubPage/grizant.github.io &amp;&amp; rm -rf !(.git|.gitignore|LICENSE.md|README.md) &amp;&amp; rsync -rvt ~/Dropbox/GitHubPage/jekyll/_site/* ~/Dropbox/GitHubPage/grizant.github.io/. &amp;&amp; gitpush "$1"
+}
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8">Enjoy!</h2>
+<div class="outline-text-2" id="text-8">
+
+</div>
+</div>

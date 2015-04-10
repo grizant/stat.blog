@@ -1,0 +1,93 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+BEGIN_HTML
+---
+layout: post
+title: "Org-mode -> Jekyll -> GitHub Blog Workflow"
+date: 2015-04-10
+excerpt: This post describes my blogging workflow.  The motivation is mostly to remind myself, but there is a chance that someone may find find this useful or interesting. The basic process requires Emacs Org-mode, Jekyll (ruby program), and a web server.
+---
+#+END_HTML
+
+* Introduction & References
+[[http://orgmode.org/worg/org-tutorials/org-jekyll.html][Ian Barton's worg post]]
+
+* Install Jekyll
+
+* Project Directory Structure
+
+* Config org mode
+
+#+BEGIN_SRC emacs-lisp :exports code :results silent
+;; Org Publish to Stat Blog to Jekyll config Added 26 Mar 2015
+;; http://orgmode.org/worg/org-tutorials/org-jekyll.html
+;; Thanks to Ian Barton
+(setq org-publish-project-alist
+      '(
+
+  ("org-grizant"
+          ;; Path to your org files.
+          :base-directory "~/Dropbox/GitHubPage/orgFiles-stat-blog/"
+          :base-extension "org"
+
+          ;; Path to your Jekyll project.
+          :publishing-directory "~/Dropbox/GitHubPage/jekyll/"
+          :recursive t
+          :publishing-function org-publish-org-to-html
+          :headline-levels 4 
+          :html-extension "html"
+          :body-only t ;; Only export section between <body> </body>
+    )
+
+
+    ("org-static-grizant"
+          :base-directory "~/Dropbox/GitHubPage/orgFiles-stat-blog/"
+          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
+          :publishing-directory "~/Dropbox/GitHubPage/"
+          :recursive t
+          :publishing-function org-publish-attachment)
+
+    ("grizant" :components ("org-grizant" "org-static-grizant"))
+
+))
+#+END_SRC
+
+* Write post.org
+#+BEGIN_EXAMPLE org
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+BEGIN_HTML
+---
+layout: default
+title: Benighted on the Ben.
+excerpt: An unplanned bivouac on Ben Nevis.
+---
+#+END_HTML
+It was early January when six of us travelled up to ....
+#+END_EXAMPLE
+
+* Publish post.html
+To export =C-c e X grizant=.
+
+You can view by =jekyll serve=
+
+* Move files and place on web server
+
+From .bashrc:
+
+#+BEGIN_EXAMPLE
+# easy git push
+gitpush()
+{
+git add --all && git commit -m "$1" && git push -u origin master
+}
+
+# copy _site files from jekyll to web server and push
+pubsite()
+{
+cd ~/Dropbox/GitHubPage/grizant.github.io && rm -rf !(.git|.gitignore|LICENSE.md|README.md) && rsync -rvt ~/Dropbox/GitHubPage/jekyll/_site/* ~/Dropbox/GitHubPage/grizant.github.io/. && gitpush "$1"
+}
+#+END_EXAMPLE
+
+
+* Enjoy! 
