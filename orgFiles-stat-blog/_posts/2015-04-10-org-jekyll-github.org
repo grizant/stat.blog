@@ -5,77 +5,105 @@
 layout: post
 title: "Org-mode -> Jekyll -> GitHub Blog Workflow"
 date: 2015-04-10
-excerpt: This post describes my blogging workflow.  The motivation is mostly to remind myself, but there is a chance that someone may find find this useful or interesting. The basic process requires Emacs Org-mode, Jekyll (ruby program), and a web server.
+excerpt: This post describes my blogging workflow. The motivation is mostly to remind myself, but there is a chance that someone may find find this useful or interesting. The basic process requires Emacs Org-mode, Jekyll (ruby program), and a web server.
 ---
 #+END_HTML
 
-* Introduction & References
-[[http://orgmode.org/worg/org-tutorials/org-jekyll.html][Ian Barton's worg post]]
+* Introduction & Resources
+First, let me say that I love [[https://www.gnu.org/software/emacs/][Emacs]] and, especially, [[http://orgmode.org/][org mode]] in Emacs. I use org mode for organization and to enable literate programming of data analytics. For some time I have intended to build a personal website with blog integration. Of course, the design would feature org mode's ability to export html markup. After exploring other geeks' blogs for a while, I found Gaston Sanchez's [[http://gastonsanchez.com][website]] which led me to discover [[http://jekyllrb.com/][jekyll]]. Jekyll is a ruby program that "transforms plain text into static websites and blogs." Basically, Jekyll prettifies your favorite markup(-down) file and additionally maintains a nice blogging structure. Finally, to publish on the web, I decided on [[https://pages.github.com/#user-site][GitHub pages]] because git is awesome and it is free.
+
+Full disclaimer: Almost of all this information is provided in [[http://orgmode.org/worg/org-tutorials/org-jekyll.html][Ian Barton's worg post]]. I have left out many of the details; so an interested reader should go to Ian's post and the jekyll site. Essentially, I just created a website (by created I mean shamefully grabbed Gaston Sanchez's site with *plans* to customize) and wanted the first informative post to help me remember what I did. That being said, I did insert a full tweeks that may have some added value to the original post.
 
 * Install Jekyll
+Assuming that you have a working org mode and an active [[https://github.com/][GitHub]] account, all you need to install is [[http://jekyllrb.com/][jekyll]] via the instructions on the linked page.
 
 * Project Directory Structure
+My project directory setup differs a bit from the one described in Ian's worg post. It is a bit more complex to allow for a little more control over the jekyll staging area and what exactly gets published on the github repo. I am only listing the key files and folders.
 
-* Config org mode
+#+BEGIN_EXAMPLE
+'|GitHubPage
+'|  |grizant.github.io
+'|  |jekyll
+'|  -- _config.yml
+'|  -- |_posts
+'|   -- 2015-03-26-my-first-post.html
+'|   -- ...
+'|  -- |_layouts
+'|   -- default.html
+'|   -- post.html
+'|   -- ...
+'|  -- |_site
+'|   -- ...
+'|  |orgFiles-stat-blog
+'|  -- |_posts
+'|   -- 2015-03-26-my-first-post.org
+'|   -- ...
+#+END_EXAMPLE
+
+The =grizant.github.io= directory houses the files to be pushed to the web server (through GitHub pages). The =jekyll= directory is under Jekyll control. A completely self-contained version of the site resides in the =_site= subdirectory in =jekyll=. The contents of the =_site= directory is copied to the github.io directory; thus the =_site= directiory is simply a staging area (more on this aspect later). =orgFiles-stat-blog= mirrors the structure of the =jekyll= directory so that files under the =_posts= directory will be properly located when the org mode file is published to html. Note the =jekyll/_layouts= provides much of the prettification of mentioned earlier.
+
+* Configure org mode
+Next, configure org mode to publish an org mode blog post file as html for this specific project, /grizant/, add the following lines to your =.emacs= or =init.el=. 
 
 #+BEGIN_SRC emacs-lisp :exports code :results silent
 ;; Org Publish to Stat Blog to Jekyll config Added 26 Mar 2015
 ;; http://orgmode.org/worg/org-tutorials/org-jekyll.html
 ;; Thanks to Ian Barton
 (setq org-publish-project-alist
-      '(
+   '(
+ ("org-grizant"
+     ;; Path to your org files.
+     :base-directory "~/Dropbox/GitHubPage/orgFiles-stat-blog/"
+     :base-extension "org"
 
-  ("org-grizant"
-          ;; Path to your org files.
-          :base-directory "~/Dropbox/GitHubPage/orgFiles-stat-blog/"
-          :base-extension "org"
+     ;; Path to your Jekyll project.
+     :publishing-directory "~/Dropbox/GitHubPage/jekyll/"
+     :recursive t
+     :publishing-function org-publish-org-to-html
+     :headline-levels 4 
+     :html-extension "html"
+     :body-only t ;; Only export section between <body> </body>
+  )
 
-          ;; Path to your Jekyll project.
-          :publishing-directory "~/Dropbox/GitHubPage/jekyll/"
-          :recursive t
-          :publishing-function org-publish-org-to-html
-          :headline-levels 4 
-          :html-extension "html"
-          :body-only t ;; Only export section between <body> </body>
-    )
+  ("org-static-grizant"
+     :base-directory "~/Dropbox/GitHubPage/orgFiles-stat-blog/"
+     :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
+     :publishing-directory "~/Dropbox/GitHubPage/"
+     :recursive t
+     :publishing-function org-publish-attachment)
 
-
-    ("org-static-grizant"
-          :base-directory "~/Dropbox/GitHubPage/orgFiles-stat-blog/"
-          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
-          :publishing-directory "~/Dropbox/GitHubPage/"
-          :recursive t
-          :publishing-function org-publish-attachment)
-
-    ("grizant" :components ("org-grizant" "org-static-grizant"))
+  ("grizant" :components ("org-grizant" "org-static-grizant"))
 
 ))
 #+END_SRC
 
 * Write post.org
+Now you can create a blog post with all the nice features of org mode with Jekyll /front matter/ in the =orgFiles-stat-blog= directory. Note that the Jekyll layout /post/ is critical to maintaining the blog functionality and uniform appearance.
+
 #+BEGIN_EXAMPLE org
 #+STARTUP: showall indent
 #+STARTUP: hidestars
 #+BEGIN_HTML
 ---
-layout: default
-title: Benighted on the Ben.
-excerpt: An unplanned bivouac on Ben Nevis.
+layout: post
+title: "Org-mode -> Jekyll -> GitHub Blog Workflow"
+date: 2015-04-10
+excerpt: This post describes my blogging workflow...
 ---
 #+END_HTML
-It was early January when six of us travelled up to ....
+
+insert text
 #+END_EXAMPLE
 
 * Publish post.html
-To export =C-c e X grizant=.
-
-You can view by =jekyll serve=
+While writing the post in post.org, you may publish using org export using =C-c e X grizant= (or your project name). This exports post.org and places in the correct jekyll directory. You can monitor your progress using =jekyll serve= prior to placing on the web server.
 
 * Move files and place on web server
+Finally, move your newly developed =jekyll/_site= to the web server and commit the changes. I wrote a couple of shell functions to streamline this process.  
 
-From .bashrc:
+From my .bashrc:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_EXAMPLE sh
 # easy git push
 gitpush()
 {
@@ -85,9 +113,15 @@ git add --all && git commit -m "$1" && git push -u origin master
 # copy _site files from jekyll to web server and push
 pubsite()
 {
-cd ~/Dropbox/GitHubPage/grizant.github.io && rm -rf !(.git|.gitignore|LICENSE.md|README.md) && rsync -rvt ~/Dropbox/GitHubPage/jekyll/_site/* ~/Dropbox/GitHubPage/grizant.github.io/. && gitpush "$1"
+cd ~/Dropbox/GitHubPage/grizant.github.io && rm -rf !(.git|.gitignore|LICENSE.md|README.md|CNAME) && rsync -rvt ~/Dropbox/GitHubPage/jekyll/_site/* ~/Dropbox/GitHubPage/grizant.github.io/. && gitpush "$1"
 }
 #+END_EXAMPLE
 
+For example to publish and push this post, I used
 
-* Enjoy! 
+#+BEGIN_EXAMPLE sh
+pubsite "org jekyll github post 1"
+#+END_EXAMPLE
+
+
+* Enjoy and happy blogging! 
