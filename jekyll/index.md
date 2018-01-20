@@ -41,7 +41,7 @@ One day I'd like to really start blogging at my [Statistical Informatics blog](/
 ## About this website
 I develop this site using [Jekyll](https://github.com/mojombo/jekyll), following this [styleguide](/styleguide). 
 Hosting by [github pages](https://pages.github.com). Source available on 
-[github](https://github.com/grizant/grizant.github.io). 
+[github](https://github.com/grizant/stat.blog). 
 
 Unless specified otherwise, content on this site is licensed under a 
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
