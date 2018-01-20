@@ -11,6 +11,6 @@ title: CV of A. Grant Schissler
 
 <object data="cv_schissler.pdf" type="application/pdf" width="700px" height="700px">
     <embed src="cv_schissler.pdf">
-        This browser does not support PDFs. Please download the PDF to view it: <a href="http://www.grantschissler.com/CV/cv_schissler.pdf">Download PDF</a>.</p>
-    </embed>
+  <p>Your browser doesn't seem to want to display the embedded CV, so please click <a href="cv/cv_schissler.pdf">here to download the PDF</a>.</p>
+
 </object>
