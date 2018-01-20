@@ -5,7 +5,7 @@ layout: page
 
 # Stat Blog 
 
-... is not currently active, I just put the structure in place.
+... is not currently active, just put a structure down. The post below may be useful.
 
 <div id="posts">
 
