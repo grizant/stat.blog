@@ -5,7 +5,7 @@ layout: page
 
 # Welcome!
 
-You've found my homepage. I'm an Assistant Professor of Statistics in the [Department of Mathematics & Statistics](https://www.unr.edu/math){:target="_blank"} at the [University of Nevada, Reno](https://www.unr.edu/){:target="_blank"}. Thanks for checking out my work! Please see more information below or by clicking the links above.
+You've found my homepage. I'm an Assistant Professor of Statistics in the [Department of Mathematics & Statistics](https://www.unr.edu/math){:target="_blank"} at the [University of Nevada, Reno](https://www.unr.edu/){:target="_blank"}. Thanks for checking out my work! Please see more information below or by clicking the links above. Note that **publications** are listed in my [CV](/CV) in an effort to stay current.
 
 <a class="graybutton" href="/CV/cv_schissler.pdf">CV</a>
 &nbsp;&nbsp;
