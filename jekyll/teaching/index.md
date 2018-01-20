@@ -15,9 +15,9 @@ Techniques and applications of linear regression analysis: inference and model d
 
 ### MATH 330 Linear Algebra
 
-Introduction to linear algebra. 
+Introduction to linear algebra (website no longer available.)
 
-(Course website was stored at Pearson MyMathLab and is no longer available.)
+
 
 
 
