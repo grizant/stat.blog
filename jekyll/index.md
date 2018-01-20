@@ -7,7 +7,7 @@ layout: page
 
 You've found my homepage. I'm an Assistant Professor of Statistics in the [Department of Mathematics & Statistics](https://www.unr.edu/math){:target="_blank"} at the [University of Nevada, Reno](https://www.unr.edu/){:target="_blank"}. Thanks for checking out my work! Please see more information below or by clicking the links above.
 
-<a class="graybutton" href="/about/cv_Schissler_16jan2018.pdf">CV</a>
+<a class="graybutton" href="/CV/cv_schissler.pdf">CV</a>
 &nbsp;&nbsp;
 <a class="graybutton" href="http://www.linkedin.com/in/grantschissler/en" target="_blank">LinkedIn</a>
 &nbsp;&nbsp;
