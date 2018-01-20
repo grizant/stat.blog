@@ -2,7 +2,7 @@
 author: A. Grant Schissler 
 description: Personal website, publications, and stat blog
 highlighter: pygments
-url: "http://yourdomain.com" # the base hostname & protocol for your site
+url: "http://www.grantschissler.com" # the base hostname & protocol for your site
 permalink: /blog/:categories/:year/:month/:day/:title.html
 
 twitter_username: gschissler
