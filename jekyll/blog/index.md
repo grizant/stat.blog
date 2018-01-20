@@ -3,7 +3,9 @@ title: Blog
 layout: page
 ---
 
-# Stat Blog
+# Stat Blog 
+
+... is not currently active, I just put the structure in place.
 
 <div id="posts">
 
